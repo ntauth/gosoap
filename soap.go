@@ -86,7 +86,7 @@ type Client struct {
 	URL          string
 	HeaderName   string
 	HeaderParams SoapParams
-	Definitions  *wsdlDefinitions
+	Definitions  *WsdlDefinitions
 	// Must be set before first request otherwise has no effect, minimum is 15 minutes.
 	RefreshDefinitionsAfter time.Duration
 	Username                string
@@ -126,7 +126,7 @@ func (c *Client) waitAndRefreshDefinitions(d time.Duration) {
 }
 
 func (c *Client) initWsdl() {
-	c.Definitions, c.definitionsErr = getWsdlDefinitions(c.wsdl, c.HTTPClient)
+	c.Definitions, c.definitionsErr = GetWsdlDefinitions(c.wsdl, c.HTTPClient)
 	if c.definitionsErr == nil {
 		c.URL = strings.TrimSuffix(c.Definitions.TargetNamespace, "/")
 	}
