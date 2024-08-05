@@ -144,6 +144,13 @@ func (c *Client) SetWSDL(wsdl string) {
 	c.initWsdl()
 }
 
+func (c *Client) SetWSDLDefinitions(wsdlDefs *WsdlDefinitions) {
+	c.once.Do(func() {})
+	c.RefreshDefinitionsAfter = 0
+	c.Definitions = wsdlDefs
+	c.definitionsErr = nil
+}
+
 // Do Process Soap Request
 func (c *Client) Do(req *Request) (res *Response, err error) {
 	c.onDefinitionsRefresh.Wait()
